@@ -1,0 +1,11 @@
+.poke-textfield {
+  padding: 12px;
+  background-color: $poke_light_color;
+  border: 0;
+  border-radius: 50px;
+  color: white;
+
+  &:focus {
+    outline: $poke_primary_color solid 2px;
+  }
+}
