@@ -1,4 +1,4 @@
-import * as PokeapiServices from "../services/pokeapi";
+import * as PokeapiServices from "../services/pokedex";
 import { getPokemonTypes, getPokemons } from "../reducers/pokeReducer";
 import { finishLoadingAction, startLoadingAction } from "./interfaceActions";
 
@@ -6,9 +6,9 @@ export function getPokemonTypesAction() {
   return async function (dispatch) {
     try {
       dispatch(startLoadingAction());
-      
+
       const { results } = await PokeapiServices.getAllPokemonTypes();
-      dispatch(getPokemonTypes(results));
+      if (results) dispatch(getPokemonTypes(results));
 
     } catch (error) {
       console.error("Unexpected error", error);
@@ -26,7 +26,7 @@ export function getAllPokemonsAction() {
 
       const params = { offset: 0, limit: 20, };
       const { results } = await PokeapiServices.getAllPokemons(params);
-      dispatch(getPokemons(results));
+      if (results) dispatch(getPokemons(results));
 
     } catch (error) {
       console.error("Unexpected error", error);
@@ -43,9 +43,15 @@ export function getPokemonsByTypeAction(type) {
       dispatch(startLoadingAction());
 
       const params = { offset: 0, limit: 20 };
-      const { pokemon } =
+      const { pokemon = [] } =
         await PokeapiServices.getPokemonsByType(type, params);
-      dispatch(getPokemons(pokemon));
+
+      if (pokemon) {
+        let reducedPokemons = pokemon.reduce((acc, { pokemon }) => {
+          return acc.concat(pokemon);
+        }, []);
+        dispatch(getPokemons(reducedPokemons));
+      }
 
     } catch (error) {
       console.error("Unexpected error", error);
