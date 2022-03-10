@@ -1,8 +1,17 @@
 .poke-card {
-  background-color: $poke_light_color;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 10px;
+  width: 150px;
+
+  @at-root #{&}__image {
+    background-color: $poke_light_color;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
 }
