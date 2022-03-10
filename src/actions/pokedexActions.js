@@ -24,9 +24,16 @@ export function getAllPokemonsAction() {
     try {
       dispatch(startLoadingAction());
 
-      const params = { offset: 0, limit: 20, };
-      const { results } = await PokeapiServices.getAllPokemons(params);
-      if (results) dispatch(getPokemons(results));
+      const params = { offset: 20, limit: 20, };
+      const { results: pokemons } = await PokeapiServices.getAllPokemons(params);
+      if (pokemons) {
+        let reducedPokemons = pokemons.reduce((acc, el) => {
+          let pokemonWithData = PokeapiServices.getPokemonByName(el.name);
+          return acc.concat(pokemonWithData);
+        }, []);
+        const result = await Promise.all(reducedPokemons);
+        dispatch(getPokemons(result));
+      }
 
     } catch (error) {
       console.error("Unexpected error", error);
@@ -48,9 +55,11 @@ export function getPokemonsByTypeAction(type) {
 
       if (pokemon) {
         let reducedPokemons = pokemon.reduce((acc, { pokemon }) => {
-          return acc.concat(pokemon);
+          let pokemonWithData = PokeapiServices.getPokemonByName(pokemon.name);
+          return acc.concat(pokemonWithData);
         }, []);
-        dispatch(getPokemons(reducedPokemons));
+        const result = await Promise.all(reducedPokemons);
+        dispatch(getPokemons(result));
       }
 
     } catch (error) {

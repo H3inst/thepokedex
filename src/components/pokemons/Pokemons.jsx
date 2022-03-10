@@ -25,15 +25,17 @@ function Pokemons(props) {
     setPagination(page);
   }
 
-  console.log(pokemons);
-
   const renderUI = () => {
+    console.log(pokemonArrays);
     return (
       <Fragment>
-        <div className="poke-container-80 flex flex-wrap">
+        <div className="poke-container-80 flex justify-center flex-wrap">
           {!!pokemons.length && pokemonArrays[pagination]?.map((pokemon) => (
-            <div key={pokemon?.name} className="poke-card">
-              <h1 className="text-header">{pokemon?.name}</h1>
+            <div key={pokemon.name} className="poke-card">
+              <div className="poke-card__image">
+                <img src={pokemon.sprites.front_default} alt="" />
+              </div>
+              <h1 className="text-header">{pokemon.name}</h1>
             </div>
           ))}
         </div>

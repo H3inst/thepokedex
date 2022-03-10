@@ -27,3 +27,10 @@ export async function getPokemonsByType(type, params = {}) {
 
   return serviceData;
 }
+
+export async function getPokemonByName(name = "") {
+  const absoluteUrl = buildUrl(`pokemon/${name}`);
+  const { data: serviceData } = await axios.get(absoluteUrl);
+
+  return serviceData;
+}
