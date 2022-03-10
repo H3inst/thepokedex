@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { connect } from "react-redux";
 //
-import * as PokedexActions from "../../actions/pokeapiActions";
+import * as PokedexActions from "../../actions/pokedexActions";
 
 function PokeTypes(props) {
   const {
@@ -11,28 +11,39 @@ function PokeTypes(props) {
     getPokemonsByType,
     pokemonTypes
   } = props;
+  const [selectedType, setSelectedType] = useState("all");
 
   useEffect(() => {
     getPokemonTypes();
     getAllPokemons();
   }, [getPokemonTypes, getAllPokemons]);
 
+  const handleSetSelectedType = (type = "") => {
+    setSelectedType(type);
+
+    if (type !== "all") {
+      getPokemonsByType(type)
+    } else {
+      getAllPokemons();
+    }
+  }
+
   const renderUI = () => {
     return (
       <div className="mt-20">
         <button
-          className="poke-button"
-          onClick={getAllPokemons}
+          className={`poke-button ${selectedType === "all" && "active"}`}
+          onClick={() => handleSetSelectedType("all")}
         >
           All
         </button>
-        {!!pokemonTypes && pokemonTypes.map(({ name }, index) => (
+        {!!pokemonTypes && pokemonTypes.map(({ name: type }, index) => (
           <button
-            key={`type-${name}-${index}`}
-            className="poke-button"
-            onClick={() => getPokemonsByType(name)}
+            key={`type-${type}-${index}`}
+            className={`poke-button ${selectedType === type && "active"}`}
+            onClick={() => handleSetSelectedType(type)}
           >
-            {name}
+            {type}
           </button>
         ))}
       </div>
