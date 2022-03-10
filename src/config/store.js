@@ -6,5 +6,9 @@ export const store = configureStore({
   reducer: {
     pokedex: pokeReducer,
     interface: interfaceReducer,
-  }
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    })
 });
