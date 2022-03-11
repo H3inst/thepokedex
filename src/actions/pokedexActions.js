@@ -26,6 +26,7 @@ export function getAllPokemonsAction() {
 
       const params = { offset: 20, limit: 20, };
       const { results: pokemons } = await PokeapiServices.getAllPokemons(params);
+      
       if (pokemons) {
         let reducedPokemons = pokemons.reduce((acc, el) => {
           let pokemonWithData = PokeapiServices.getPokemonByName(el.name);
