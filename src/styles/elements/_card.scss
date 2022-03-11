@@ -3,8 +3,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 10px;
+  margin: 15px;
   width: 150px;
+  cursor: pointer;
 
   @at-root #{&}__image {
     width: 100px;
@@ -40,6 +41,23 @@
       color: $poke_primary_color;
       font-weight: 600;
       font-size: 0.8125rem;
+    }
+  }
+
+  @at-root #{&}__action {
+    width: 100%;
+    border-radius: 10px;
+    background-color: $poke_light_color;
+    padding: 5px 10px;
+    text-align: center;
+    font-size: 0.9rem;
+    transition: all 0.1s ease;
+  }
+
+  &:hover {
+    .poke-card__action {
+      background-color: $poke_primary_color;
+      color: black;
     }
   }
 }
