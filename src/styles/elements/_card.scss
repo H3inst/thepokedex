@@ -9,9 +9,32 @@
   @at-root #{&}__image {
     background-color: $poke_light_color;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 50px;
     margin-bottom: 10px;
-    width: 100%;
+
+    img {
+      width: 100%;
+      max-height: auto;
+    }
   }
 
+  @at-root #{&}__description {
+    background-color: $poke_light_color;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    span {
+      font-size: 0.8125rem;
+    }
+
+    .title {
+      color: $poke_primary_color;
+      font-weight: 600;
+      font-size: 0.8125rem;
+    }
+  }
 }
