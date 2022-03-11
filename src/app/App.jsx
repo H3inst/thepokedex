@@ -10,7 +10,7 @@ function App(props) {
   return (
     <div className="App">
       <Header />
-      <div className="poke-container-50">
+      <div className="poke-container-60">
         <h1 className="text-header text-center" style={{ marginTop: 150 }}>
           Watch all pokemons with the best API for it.
         </h1>
