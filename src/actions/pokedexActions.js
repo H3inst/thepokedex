@@ -24,7 +24,7 @@ export function getAllPokemonsAction() {
     try {
       dispatch(startLoadingAction());
 
-      const params = { offset: 20, limit: 20, };
+      const params = { offset: 0, limit: 24, };
       const { results: pokemons } = await PokeapiServices.getAllPokemons(params);
       
       if (pokemons) {
@@ -50,7 +50,7 @@ export function getPokemonsByTypeAction(type) {
     try {
       dispatch(startLoadingAction());
 
-      const params = { offset: 0, limit: 20 };
+      const params = { offset: 0, limit: 24 };
       const { pokemon = [] } =
         await PokeapiServices.getPokemonsByType(type, params);
 
