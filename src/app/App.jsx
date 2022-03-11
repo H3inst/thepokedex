@@ -7,7 +7,7 @@ function App() {
     <div className="App">
       <Header />
       <div className="poke-container-50">
-        <h1 className="text-header mt-50 text-center">
+        <h1 className="text-header text-center" style={{ marginTop: 150 }}>
           Watch all pokemons with the best API for it.
         </h1>
         <input
