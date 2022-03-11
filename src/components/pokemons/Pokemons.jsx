@@ -9,7 +9,7 @@ function Pokemons(props) {
   useEffect(() => {
     if (pokemons) {
       let splittedPokemons = pokemons.reduce((acc, el, index) => {
-        const chunk = Math.floor(index / 20);
+        const chunk = Math.floor(index / 24);
 
         if (!acc[chunk]) acc[chunk] = [];
         acc[chunk].push(el);
@@ -28,7 +28,7 @@ function Pokemons(props) {
   const renderUI = () => {
     return (
       <Fragment>
-        <div className="poke-container-80 flex justify-center flex-wrap">
+        <div className="flex justify-center flex-wrap">
           {!!pokemons.length ? pokemonArrays[pagination]?.map((pokemon) => (
             <div key={pokemon.name} className="poke-card">
               <div className="poke-card__image">
@@ -37,6 +37,10 @@ function Pokemons(props) {
               <div className="poke-card__description">
                 <span><span className="title">Name:</span> {pokemon.name}</span>
                 <span><span className="title">Experience:</span> {pokemon.base_experience}</span>
+                <span><span className="title">Type:</span> {pokemon.types[0].type.name}</span>
+              </div>
+              <div className="poke-card__action">
+                See more
               </div>
             </div>
           )) : (
@@ -44,7 +48,7 @@ function Pokemons(props) {
           )}
         </div>
         <div className="flex justify-center align-center">
-          {pokemonArrays?.map((page, index) => (
+          {pokemonArrays?.map((_page, index) => (
             <button
               key={index}
               className={`poke-button mt-50 mb-50 ${pagination === index && "active"}`}
