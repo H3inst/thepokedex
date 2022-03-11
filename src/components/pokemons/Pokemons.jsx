@@ -39,7 +39,10 @@ function Pokemons(props) {
                   <div className="poke-card__image">
                     <img src={pokemon.sprites.front_default} alt="" />
                   </div>
-                  <h1 className="text-header">{pokemon.name}</h1>
+                  <div className="poke-card__description">
+                    <span><span className="title">Name:</span> {pokemon.name}</span>
+                    <span><span className="title">Experience:</span> {pokemon.base_experience}</span>
+                  </div>
                 </div>
               )) : (
                 <h1 className="text-header">Oops! There are no pokemons here. 🤔</h1>
