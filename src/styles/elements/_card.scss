@@ -55,9 +55,16 @@
   }
 
   &:hover {
+    .poke-card__image {
+      box-shadow: $poke_border_radius;
+    }
+    .poke-card__description {
+      box-shadow: $poke_border_radius;
+    }
     .poke-card__action {
       background-color: $poke_primary_color;
       color: black;
+      box-shadow: $poke_border_radius;
     }
   }
 }
