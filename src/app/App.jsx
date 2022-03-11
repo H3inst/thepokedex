@@ -1,8 +1,12 @@
+import { connect } from "react-redux";
+
+import Loader from "../components/common/Loader";
 import Header from "../components/header/Header";
 import Pokemons from "../components/pokemons/Pokemons";
 import PokeTypes from "../components/pokeTypes/PokeTypes";
 
-function App() {
+function App(props) {
+  const { isLoading } = props;
   return (
     <div className="App">
       <Header />
@@ -18,10 +22,14 @@ function App() {
         <PokeTypes />
       </div>
       <div className="poke-container-80 mt-40">
-        <Pokemons />
+        {isLoading ? <Loader /> : <Pokemons />}
       </div>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  isLoading: state.interface.isLoading,
+})
+
+export default connect(mapStateToProps)(App);
