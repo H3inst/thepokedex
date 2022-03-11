@@ -32,7 +32,11 @@ function Pokemons(props) {
           {!!pokemons.length ? pokemonArrays[pagination]?.map((pokemon) => (
             <div key={pokemon.name} className="poke-card">
               <div className="poke-card__image">
-                <img src={pokemon.sprites.front_default} alt="" />
+                <img
+                  src={pokemon.sprites.front_default}
+                  alt="pokemon"
+                  loading="lazy"
+                />
               </div>
               <div className="poke-card__description">
                 <span><span className="title">Name:</span> {pokemon.name}</span>
