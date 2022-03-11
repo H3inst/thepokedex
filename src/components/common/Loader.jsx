@@ -1,7 +1,7 @@
 function Loader() {
   const renderUI = () => (
     <div className="w-100 text-center mt-50">
-      <div class="lds-default">
+      <div className="lds-default">
         <div></div>
         <div></div>
         <div></div>
