@@ -15,11 +15,6 @@ function App(props) {
         <h1 className="text-header text-center" style={{ marginTop: 150 }}>
           Watch all pokemons with the best API for it.
         </h1>
-        <input
-          type="text"
-          className="poke-textfield w-100 mt-30"
-          placeholder="Search for a pokemon"
-        />
         <PokeTypes />
       </div>
       <div className="poke-container-80 mt-40">

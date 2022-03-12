@@ -26,7 +26,7 @@ export function getAllPokemonsAction() {
 
       const params = { offset: 0, limit: 24, };
       const { results: pokemons } = await PokeapiServices.getAllPokemons(params);
-      
+
       if (pokemons) {
         let reducedPokemons = pokemons.reduce((acc, el) => {
           let pokemonWithData = PokeapiServices.getPokemonByName(el.name);
@@ -56,7 +56,7 @@ export function getPokemonsByTypeAction(type) {
 
       if (pokemon) {
         let reducedPokemons = pokemon.reduce((acc, { pokemon }) => {
-          let pokemonWithData = PokeapiServices.getPokemonByName(pokemon.name);
+          const pokemonWithData = PokeapiServices.getPokemonByName(pokemon.name);
           return acc.concat(pokemonWithData);
         }, []);
         const result = await Promise.all(reducedPokemons);
@@ -65,6 +65,27 @@ export function getPokemonsByTypeAction(type) {
 
     } catch (error) {
       console.error("Unexpected error", error);
+
+    } finally {
+      dispatch(finishLoadingAction());
+    }
+  };
+}
+
+export function getPokemonBySearch(name) {
+  return async function (dispatch) {
+    try {
+      dispatch(startLoadingAction());
+      const pokemon = await PokeapiServices.getPokemonByName(name);
+
+      if (pokemon) {
+        let pokemonArray = [{ ...pokemon }];
+        dispatch(getPokemons(pokemonArray));
+      }
+
+    } catch (error) {
+      console.error("Unexpected error", error);
+      dispatch(getPokemons([]));
 
     } finally {
       dispatch(finishLoadingAction());

@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { connect } from "react-redux";
 //
 import * as PokedexActions from "../../actions/pokedexActions";
+import PokemonSearcher from "../searcher/PokemonSearcher";
 
 function PokeTypes(props) {
   const {
@@ -22,31 +23,34 @@ function PokeTypes(props) {
     setSelectedType(type);
 
     if (type !== "all") {
-      getPokemonsByType(type)
+      getPokemonsByType(type);
     } else {
       getAllPokemons();
     }
-  }
+  };
 
   const renderUI = () => {
     return (
-      <div className="mt-20">
-        <button
-          className={`poke-button ${selectedType === "all" && "active"}`}
-          onClick={() => handleSetSelectedType("all")}
-        >
-          All
-        </button>
-        {!!pokemonTypes && pokemonTypes.map(({ name: type }, index) => (
+      <Fragment>
+        <PokemonSearcher setType={setSelectedType} />
+        <div className="mt-20">
           <button
-            key={`type-${type}-${index}`}
-            className={`poke-button ${selectedType === type && "active"}`}
-            onClick={() => handleSetSelectedType(type)}
+            className={`poke-button ${selectedType === "all" && "active"}`}
+            onClick={() => handleSetSelectedType("all")}
           >
-            {type}
+            All
           </button>
-        ))}
-      </div>
+          {!!pokemonTypes && pokemonTypes.map(({ name: type }, index) => (
+            <button
+              key={`type-${type}-${index}`}
+              className={`poke-button ${selectedType === type && "active"}`}
+              onClick={() => handleSetSelectedType(type)}
+            >
+              {type}
+            </button>
+          ))}
+        </div>
+      </Fragment>
     );
   };
 
