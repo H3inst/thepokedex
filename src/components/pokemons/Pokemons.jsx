@@ -1,10 +1,12 @@
 import { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
+import PokemonModal from "./pokemonModal/PokemonModal";
 
 function Pokemons(props) {
   const { pokemons = [] } = props;
   const [pokemonArrays, setPokemonArrays] = useState([]);
   const [pagination, setPagination] = useState(0);
+  const [pokemonDetailsModal, setPokemonDetailsModal] = useState({ visible: false });
 
   useEffect(() => {
     if (pokemons) {
@@ -25,12 +27,24 @@ function Pokemons(props) {
     setPagination(page);
   };
 
+  const handleOpenPokemonModal = (pokemon) => {
+    setPokemonDetailsModal({ visible: true, pokemon });
+  };
+
+  const handleClosePokemonModal = () => {
+    setPokemonDetailsModal({ visible: false });
+  };
+
   const renderUI = () => {
     return (
       <Fragment>
         <div className="flex justify-center flex-wrap">
           {!!pokemons.length ? pokemonArrays[pagination]?.map((pokemon) => (
-            <div key={pokemon.name} className="poke-card">
+            <div
+              key={pokemon.name}
+              className="poke-card"
+              onClick={() => handleOpenPokemonModal(pokemon)}
+            >
               <div className="poke-card__image">
                 <img
                   src={pokemon.sprites.front_default}
@@ -39,9 +53,15 @@ function Pokemons(props) {
                 />
               </div>
               <div className="poke-card__description">
-                <span><span className="title">Name:</span> {pokemon.name}</span>
-                <span><span className="title">Experience:</span> {pokemon.base_experience}</span>
-                <span><span className="title">Type:</span> {pokemon.types[0].type.name}</span>
+                <span><span className="title"
+                >Name:</span> {pokemon.name}
+                </span>
+                <span><span className="title">
+                  Experience:</span> {pokemon.base_experience}
+                </span>
+                <span><span className="title">
+                  Type:</span> {pokemon.types[0].type.name}
+                </span>
               </div>
               <div className="poke-card__action">
                 See more
@@ -62,6 +82,11 @@ function Pokemons(props) {
             </button>
           ))}
         </div>
+        <PokemonModal
+          open={pokemonDetailsModal.visible}
+          pokemon={pokemonDetailsModal.pokemon}
+          onClose={handleClosePokemonModal}
+        />
       </Fragment>
     );
   };
