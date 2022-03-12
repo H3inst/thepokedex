@@ -7,6 +7,11 @@
   color: $poke_primary_color;
 }
 
+.poke-link {
+  @extend .primary-color;
+  text-decoration: none;
+}
+
 .text-center {
   text-align: center;
 }
